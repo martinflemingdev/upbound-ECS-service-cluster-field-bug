@@ -1,0 +1,40 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  labels:
+    testing.upbound.io/example-name: self-http-ingress
+  name: self-http-ingress
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    description: self-http-ingress
+    fromPort: 80
+    protocol: tcp
+    region: us-east-1
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sg-us-east-1
+    self: true         
+    toPort: 80
+    type: ingress
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  labels:
+    testing.upbound.io/example-name: ecs-service-egress
+  name: ecs-service-egress
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    cidrBlocks:       
+    - 0.0.0.0/0
+    description: ecs-service-egress
+    fromPort: 0
+    toPort: 65535
+    protocol: tcp
+    region: us-east-1
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sg-us-east-1
+    type: egress

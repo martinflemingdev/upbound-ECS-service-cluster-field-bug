@@ -16,7 +16,9 @@ metadata:
   name: sample-app-service
 spec:
   forProvider:
-    # according to Upbound docs, cluster should be the ARN, but throws "InvalidParameterException: Unsupported resource type: cluster:"
+    # according to Upbound docs, "cluster" field should be an ARN, but throws "InvalidParameterException: Unsupported resource type: cluster:"
+    # cluster: arn:aws:ecs:us-east-1:011882408883:cluster/sample-app-cluster  <---- DOES NOT WORK
+
     # works when given the name of the cluster, not ARN
     cluster: sample-app-cluster 
     #
@@ -28,5 +30,4 @@ spec:
     #
     # clusterRef:
     #   name: sample-app-cluster
-    #
 ```

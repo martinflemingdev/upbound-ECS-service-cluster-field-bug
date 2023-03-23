@@ -1,0 +1,37 @@
+apiVersion: ecs.aws.upbound.io/v1beta1
+kind: Service
+metadata:
+  labels:
+    testing.upbound.io/example-name: sample-app-service
+  name: sample-app-service
+spec:
+  forProvider:
+    # according to Upbound docs, cluster should be the ARN, but throws "InvalidParameterException: Unsupported resource type: cluster:"
+    # cluster: arn:aws:ecs:us-east-1:011882408883:cluster/sample-app-cluster  <---- DOES NOT WORK
+
+    # works when given the name of the cluster, not ARN
+    cluster: sample-app-cluster 
+    #
+    # Selector and Ref also don't work because they resolve to ARN
+    #
+    # clusterSelector:
+    #   matchLabels:
+    #     testing.upbound.io/example-name: sample-app-cluster
+    #
+    # clusterRef:
+    #   name: sample-app-cluster
+    #
+    desiredCount: 1
+    launchType: FARGATE
+    networkConfiguration: 
+      - assignPublicIp: true
+        securityGroupSelector:
+          matchLabels:
+            testing.upbound.io/example-name: sg-us-east-1
+        subnetSelector:
+          matchLabels:
+            testing.upbound.io/example-name: subnet-us-east-1a
+            testing.upbound.io/example-name: subnet-us-east-1b
+    propagateTags: TASK_DEFINITION
+    region: us-east-1
+    taskDefinition: sample-app-task
