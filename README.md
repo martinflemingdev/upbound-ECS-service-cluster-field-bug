@@ -1,9 +1,8 @@
 # upbound-ECS-service-cluster-field-bug
 
-spec.forProvider.cluster field does not work as expected, documentation says it takes an ARN, but only the cluster name works.
-
 ![ecs-service-doc](https://user-images.githubusercontent.com/78125388/227315695-87f6e946-31ad-4c60-95f5-0d1572bbc56b.png)
 
+spec.forProvider.cluster field does not work as expected, documentation says it takes an ARN, but only the cluster name works.
 
 Therefore clusterSelector and clusterRef fields that resolve to ARN are also broken and do not work.
 
