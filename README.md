@@ -7,7 +7,7 @@ Therefore clusterSelector and clusterRef fields that resolve to ARN are also bro
 Workaround at this time is to hardcode the cluster name into the spec.forProvider.cluster field
 
 ECS Service component manifest with comments:
-
+```
 apiVersion: ecs.aws.upbound.io/v1beta1
 kind: Service
 metadata:
@@ -29,3 +29,4 @@ spec:
     # clusterRef:
     #   name: sample-app-cluster
     #
+```
